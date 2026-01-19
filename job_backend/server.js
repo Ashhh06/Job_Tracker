@@ -12,6 +12,7 @@ app.use(express.json());
 
 //routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/applications', require('./routes/applications'));
 
 app.use(errorHandler);
 
