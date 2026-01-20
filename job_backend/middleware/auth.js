@@ -13,6 +13,14 @@ exports.protect = async (req, res, next) => {
         token = req.headers.authorization.split(' ')[1];
     }
 
+    // Check if token exists - return early if not
+    if (!token) {
+        return res.status(401).json({
+            success: false,
+            message: 'Not authorized to access this route - No token provided',
+        });
+    }
+
     try {
         //verify token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);

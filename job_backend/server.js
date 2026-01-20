@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const { errorHandler } = require('./middleware/errorHandler');
 
 dotenv.config();
@@ -8,6 +9,7 @@ dotenv.config();
 const app = express();
 
 //middleware
+app.use(cors());
 app.use(express.json());
 
 //routes
@@ -21,7 +23,7 @@ const PORT = process.env.PORT || 5000;
 //connect to mongoDB
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {``
+  .then(() => {
     console.log('Connected to MongoDB');
     //start server
     app.listen(PORT, () => {

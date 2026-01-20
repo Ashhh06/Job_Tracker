@@ -32,13 +32,12 @@ const userSchema = new mongoose.Schema(
 
 
 //hash password before saving
-userSchema.pre('save', async function(next) {
-    if(!this.isModified('password')) return next(); //hash password only if modified.
+userSchema.pre('save', async function() {
+    if(!this.isModified('password')) return; //hash password only if modified.
 
     //hash password with cost 12
     const salt = await bcrypt.genSalt(12);
     this.password = await bcrypt.hash(this.password, salt);
-    next();
 });
 
 //to compare password for login
